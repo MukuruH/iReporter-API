@@ -4,16 +4,17 @@ Author:Harold
 
 from flask import Flask, jsonify, request, json
 
-from app.models import User, Incident
+from models import User, Incident
 
 app = Flask(__name__)
+app.config['JSON_SORT_KEYS'] = False
 
 users = []
 redflags=[]
 interventions=[]
 
 
-@app.route('/api/v1/redflags', methods=['GET'])
+@app.route('/api/v1/red-flags', methods=['GET'])
 
 def get_all_redflags():
 
@@ -21,7 +22,7 @@ def get_all_redflags():
     #print(redflags)
     
     for item in redflags:
-        json_redflags.append(item.convert_dictionary())
+        json_redflags.append(item.convert_to_dictionary())
 
     print(json_redflags)
     print(len(json_redflags))
@@ -30,7 +31,7 @@ def get_all_redflags():
     return jsonify({"status":200 ,"red-flags": json_redflags})
 
 
-@app.route('/api/v1/redflags', methods=['POST'])
+@app.route('/api/v1/red-flags', methods=['POST'])
 def add_redflag():
     data = request.get_json()
     print(data)
@@ -45,14 +46,48 @@ def add_redflag():
         redflags.append(redflag)
     except ValueError as e:
         print(e)
-        return jsonify({"message": "Please input text"}), 400
-    return jsonify({"status": 201,"redflags": [redflag.convert_dictionary()]}) 
+        return jsonify({"status":400,"message": "Please input text"}),
+    return jsonify({"status": 201,"redflags": [redflag.convert_to_dictionary()]}) 
 
 
 
-    @app.route('/api/v1/redflags', methods=['PATCH'])
-    def add_redflag():
-        pass
+
+@app.route('/api/v1/red-flags/<int:id>', methods=['GET'])
+
+def get_specific_redflag(id):
+
+    json_redflags = []
+            #print(redflags)
+    for item in redflags:
+        json_redflags.append(item.convert_to_dictionary())
+
+    for index in json_redflags:
+        if index["id"]== id :
+            return jsonify({"status":200,"data":index })
+        else:
+            return jsonify({"status":404,"message":"Resource does not exist" })       
+            
+
+            
+    
+
+    
+
+
+@app.route('/api/v1/red-flags/<int:id>/location', methods=['PATCH'])
+def edit_redflag(id):
+
+    json_redflags = []
+            #print(redflags)
+    for item in redflags:
+        json_redflags.append(item.convert_to_dictionary())
+
+    for index in json_redflags:
+        if index["id"]== id :
+            print(index.get('createdBy'))
+            index['location'] = 'Abraham Arishian'
+            print(index.get('createdBy'))
+    return 'dea'
 
 
 

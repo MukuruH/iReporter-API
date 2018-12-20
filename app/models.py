@@ -4,8 +4,6 @@ Date: 19-12-18
 ---------------------
 
 """
-
-
 from random import randint
 from datetime import date
 
@@ -22,7 +20,7 @@ class User:
         self.registered=date.today()
         self.isAdmin=isAdmin
 
-    def convert_dictionary(self):
+    def convert_to_dictionary(self):
         return {'id': self.id, 'name': self.firstname,'name': self.lastname,
                 'othernames': self.othernames,'email':self.email, 
                 'phoneNumber':self.phoneNumber, 'username':self.username,
@@ -43,7 +41,7 @@ class Incident:
         self.Videos=Videos
         self.comment=comment
 
-    def convert_dictionary(self):
+    def convert_to_dictionary(self):
         return {'id': self.id, 'createdOn':self.createdOn,'createdBy':self.createdBy,
                 'types':self.types,'location':self.location,'status':self.status,'Images':self.Images,
                 'Videos':self.Videos,'comment':self.comment}

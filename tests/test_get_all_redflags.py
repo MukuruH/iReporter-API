@@ -4,7 +4,7 @@ from app.app import app
 
 
 
-class TestIncident(unittest.TestCase):
+class TestGetAllIncidents(unittest.TestCase):
 
     def setUp(self):
         self.app_tester = app.test_client()
