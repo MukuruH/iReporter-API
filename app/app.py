@@ -75,7 +75,7 @@ def get_specific_redflag(id):
 
 
 @app.route('/api/v1/red-flags/<int:id>/location', methods=['PATCH'])
-def edit_redflag(id):
+def edit_redflag(id, location):
 
     json_redflags = []
             #print(redflags)
@@ -84,10 +84,11 @@ def edit_redflag(id):
 
     for index in json_redflags:
         if index["id"]== id :
-            print(index.get('createdBy'))
-            index['location'] = 'Abraham Arishian'
-            print(index.get('createdBy'))
-    return 'dea'
+            print(index.get('location'))
+            index['location'] = location
+            print(index.get('location'))
+    return dea
+
 
 
 
