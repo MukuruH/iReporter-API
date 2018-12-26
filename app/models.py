@@ -31,7 +31,8 @@ class Incident:
     def __init__(self,createdBy,types,location,status,
                 Images,Videos,comment):
 
-        self.id=randint(1,99)
+        # created default for the instance varaibles
+        self.id=randint(10000,99999)
         self.createdOn=date.today()
         self.createdBy=createdBy
         self.types=types

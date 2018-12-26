@@ -4,7 +4,7 @@ Author:Harold
 
 from flask import Flask, jsonify, request, json
 
-from models import User, Incident
+from app.models import User, Incident
 
 app = Flask(__name__)
 app.config['JSON_SORT_KEYS'] = False
@@ -17,18 +17,10 @@ interventions=[]
 @app.route('/api/v1/red-flags', methods=['GET'])
 
 def get_all_redflags():
-
-    json_redflags = []
-    #print(redflags)
-    
-    for item in redflags:
-        json_redflags.append(item.convert_to_dictionary())
-
-    print(json_redflags)
-    print(len(json_redflags))
-    if len(json_redflags) < 1:
-        return jsonify({"status":200,"message": "There is nothing to output"})
-    return jsonify({"status":200 ,"red-flags": json_redflags})
+       
+    if len(redflags) < 1:
+        return jsonify({"status":200,"message": "Resource does not exist"})
+    return jsonify({"status":200 ,"data": redflags})
 
 
 @app.route('/api/v1/red-flags', methods=['POST'])
@@ -37,59 +29,67 @@ def add_redflag():
     print(data)
 
     try:
-        # print(data)
-        # if type(data['types']) is not str:
-        #     raise ValueError('Please input text')
+       
         redflag = Incident(data["createdBy"], data["types"],data["location"],
                             data["status"],data["Images"],data["Videos"],data["comment"])
 
-        redflags.append(redflag)
+        redflags.append(redflag.convert_to_dictionary())
     except ValueError as e:
         print(e)
         return jsonify({"status":400,"message": "Please input text"}),
-    return jsonify({"status": 201,"redflags": [redflag.convert_to_dictionary()]}) 
+    return jsonify({"status": 201,"data":[{"id":redflag.id,"message":"Created red-flag record"}] }) 
 
 
 
 
 @app.route('/api/v1/red-flags/<int:id>', methods=['GET'])
-
 def get_specific_redflag(id):
 
-    json_redflags = []
-            #print(redflags)
-    for item in redflags:
-        json_redflags.append(item.convert_to_dictionary())
-
-    for index in json_redflags:
-        if index["id"]== id :
-            return jsonify({"status":200,"data":index })
-        else:
-            return jsonify({"status":404,"message":"Resource does not exist" })       
-            
-
-            
+    if len(redflags) <1:
+        return jsonify({"status":204,"message":"Resource does not exist" })      
     
-
+    for index in range(len(redflags)):
+        if redflags[index]["id"]== id:
+            return jsonify({"status":200,"data":redflags[index] })
+        elif index == (len(redflags) -1):
+            return jsonify({"status":404,"message":"Resource does not exist" })      
+    
     
 
 
-@app.route('/api/v1/red-flags/<int:id>/location', methods=['PATCH'])
-def edit_redflag(id, location):
+@app.route('/api/v1/red-flags/<int:id>/<string:key>', methods=['PATCH'])
+def update_location(id,key):
+    data = request.get_json()
+    print(data)
+ 
+    if len(redflags) <1:
+        return jsonify({"status":204,"message":"Resource does not exist" })      
+    
+    for index in range(len(redflags)):
+        if redflags[index]["id"]== id:
+            redflags[index][key]=data[key]
+            return jsonify({"status":200,"data": [{"id": redflags[index]["id"],"message": "Updated red-flag record's {}".format(key)}] })
+        elif index == (len(redflags) -1):
+            return jsonify({"status":404,"message":"Resource does not exist" })      
+    
+    
+   
 
-    json_redflags = []
-            #print(redflags)
-    for item in redflags:
-        json_redflags.append(item.convert_to_dictionary())
 
-    for index in json_redflags:
-        if index["id"]== id :
-            print(index.get('location'))
-            index['location'] = location
-            print(index.get('location'))
-    return dea
+@app.route('/api/v1/red-flags/<int:id>', methods=['DELETE'])
+def delete__redflag(id):
+    data = request.get_json()
+    print(data)
 
-
+    for index in range(len(redflags)):
+        if  redflags[index]["id"]== id: 
+            del redflags[redflags.index(redflags[index])]
+            return jsonify({"status":200,"data": [{"id":id,"message": "red-flag record has been deleted"}] })
+        elif index == (len(redflags) -1):
+            return jsonify({"status":404,"message":"Resource does not exist" })      
+    
+    
+       
 
 
 if __name__ == '__main__':

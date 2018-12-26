@@ -7,5 +7,5 @@ omit =
     */env/*
     *__init__*
     tests/*
-    app/models/*
+    app/models.py/*
     */dist-packages/*
