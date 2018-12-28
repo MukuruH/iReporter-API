@@ -24,7 +24,7 @@ POST|api/v1/red-flags|Create an incident
 GET|api/v1/red-flags/id|Fetch a specific incident
 GET|api/v1/red-flags|Fetch all incidents
 PATCH|api/v1/red-flags/id/[key]|Edit specific information on an end point
-DELETE|api/v1/red-flags|Delete an incident
+DELETE|api/v1/red-flags/id|Delete an incident
 
 ## Running Tests
 tests are carried out in a virtual environment with pytest module
