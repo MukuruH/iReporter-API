@@ -11,5 +11,5 @@ install:
 script:
   - python -m pytest
 
-after-success:
+after_success:
   - coveralls
