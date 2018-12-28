@@ -1,15 +1,50 @@
 import unittest
 import json
 from app.app import app
-from app.models import User, Incident
 
 
-class TestPostIncident(unittest.TestCase):
+
+
+class TestForIncident(unittest.TestCase):
 
     def setUp(self):
         self.app_tester = app.test_client()
         
-    def test_get_all(self):
+   
+    def test_posting_empty_data(self):
+
+       #created data option not provided
+        random_data = {
+                        
+                        "types":"",
+                        "location":"",
+                        "status":"",
+                        "Images":"hjj",
+                        "Videos":"hj",
+                        "comment":"ghd"
+                    }
+        response = self.app_tester.post('/api/v1/red-flags',json =random_data)
+        data =  json.loads(response.data)
+        self.assertEqual(data["status"],400)
+
+    def test_posting_data(self):
+    
+
+        random_data = {
+                        "createdBy":"hamza",
+                        "types":"red-flag",
+                        "location":"mbra",
+                        "status":"on going",
+                        "Images":"hjj",
+                        "Videos":"hj",
+                        "comment":"ghd"
+                    }
+        response=self.app_tester.post('/api/v1/red-flags',json =random_data)
+        data =  json.loads(response.data)
+        self.assertEqual(data["status"],201)
+
+
+    def test_get_all_with_data(self):
     
         random_data = {
                         "createdBy":"hamza",
@@ -36,10 +71,11 @@ class TestPostIncident(unittest.TestCase):
         response = self.app_tester.get('/api/v1/red-flags')
         data =  json.loads(response.data)
         self.assertEqual(data["status"],200)
+    
 
 
     
-    def test_specific(self):
+    def test_get_specific_one(self):
         
         random_data = {
                         "createdBy":"hamza",
@@ -62,7 +98,10 @@ class TestPostIncident(unittest.TestCase):
                         "comment":"on the low"
                     }
         self.app_tester.post('/api/v1/red-flags',json =random_data)
-        response = self.app_tester.get('/api/v1/red-flags')
+        response = self.app_tester.get('/api/v1/red-flags/2')
         data =  json.loads(response.data)
         self.assertEqual(data["status"],200)
-        self.assertEqual(data["message"],"There is nothing to output")
+       
+
+    
+      

@@ -4,13 +4,13 @@ Date: 19-12-18
 ---------------------
 
 """
-from random import randint
 from datetime import date
+import json
 
 class User:
-    def __init__(self,firstname,lastname,othernames,
+    def __init__(self,id,firstname,lastname,othernames,
                 email,phoneNumber,username,isAdmin):
-        self.id=randint(10000,99999)
+        self.id=id
         self.firstname=firstname
         self.lastname=lastname
         self.othernames=othernames
@@ -28,11 +28,11 @@ class User:
 
 
 class Incident:
-    def __init__(self,createdBy,types,location,status,
+    def __init__(self,id,createdBy,types,location,status,
                 Images,Videos,comment):
 
         # created default for the instance varaibles
-        self.id=randint(10000,99999)
+        self.id=id
         self.createdOn=date.today()
         self.createdBy=createdBy
         self.types=types
