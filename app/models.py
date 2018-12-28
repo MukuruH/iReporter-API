@@ -9,7 +9,7 @@ import json
 
 class User:
     def __init__(self,id,**kwargs):
-        self.id = id
+        self.id=id
         self.firstname = kwargs['firstname']
         self.lastname = kwargs['lastname']
         self.othernames = kwargs['othernames']
@@ -19,6 +19,7 @@ class User:
         self.registered=date.today()
         self.isAdmin = kwargs['isAdmin']
 
+
     def convert_to_dictionary(self):
         return {'id': self.id, 'name': self.firstname,'name': self.lastname,
                 'othernames': self.othernames,'email':self.email, 
@@ -27,18 +28,19 @@ class User:
 
 
 class Incident:
-    def __init__(self,id,**kwargs):
+    def __init__(self,id,createdBy,types,location,status,
+                Images,Videos,comment):
 
         # created default for the instance varaibles
-        self.id = id
-        self.createdOn = date.today()
-        self.createdBy = kwargs['createdBy']
-        self.types = kwargs['types']
-        self.location = kwargs['location']
-        self.status = kwargs['status']
-        self.Images = kwargs['Images']
-        self.Videos = kwargs['Videos']
-        self.comment = kwargs['comment']
+        self.id=id
+        self.createdOn=date.today()
+        self.createdBy=createdBy
+        self.types=types
+        self.location=location
+        self.status=status
+        self.Images=Images
+        self.Videos=Videos
+        self.comment=comment
 
     def convert_to_dictionary(self):
         return {'id': self.id, 'createdOn':self.createdOn,'createdBy':self.createdBy,

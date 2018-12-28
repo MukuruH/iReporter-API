@@ -46,7 +46,10 @@ def get_all_redflags():
     if len(redflags) < 1:
         return jsonify({"status":404,"message":"Resource does not exist" }),404
     return jsonify({"status":200 ,"data": redflags}),200
+    
+        
 
+        
 
 
 
@@ -54,16 +57,16 @@ def get_all_redflags():
 @app.route('/api/v1/red-flags/<int:id>', methods=['GET'])
 def get_specific_redflag(id):
 
-    try:
-        for index in range(len(redflags)):
-            if redflags[index]["id"]== id: 
-                return jsonify({"status":200,"data":redflags[index] }),200
-            elif index == (len(redflags) -1):
-                return jsonify({"status":404,"message":"Resource does not exist" }) ,404
+    
+    for index in range(len(redflags)):
+        if redflags[index]["id"]== id: 
+            return jsonify({"status":200,"data":redflags[index] }),200
+        elif index == (len(redflags) -1):
+            return jsonify({"status":404,"message":"Resource does not exist" }) ,404
 
-    except:  
-        if len(redflags) <1:
-            return jsonify({"status":404,"message":"Resource does not exist"  }),404    
+    
+    if len(redflags) <1:
+        return jsonify({"status":404,"message":"Resource does not exist"  }),404    
             
     
     
