@@ -4,7 +4,7 @@ Author:Harold
 
 from flask import Flask, jsonify, request, json
 
-from app.models import User, Incident
+from models import User, Incident
 
 
 app = Flask(__name__)
