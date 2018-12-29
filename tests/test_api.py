@@ -1,6 +1,6 @@
 import unittest
 import json
-from app.app import app
+from app.app_routes import app
 
 
 
@@ -11,7 +11,7 @@ class TestForIncident(unittest.TestCase):
         self.app_tester = app.test_client()
         
    
-    def test_posting_empty_data(self):
+    def test_posting_data_missing_a_variable(self):
 
        #created data option not provided
         random_data = {
@@ -109,7 +109,7 @@ class TestForIncident(unittest.TestCase):
     def test_get_out_of_range_specific_one(self):
         
         
-        response = self.app_tester.get('/api/v1/red-flags/4')
+        response = self.app_tester.get('/api/v1/red-flags/6')
         data =  json.loads(response.data)
         self.assertEqual(data["status"],404)
 
