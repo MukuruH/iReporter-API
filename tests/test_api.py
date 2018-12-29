@@ -9,6 +9,27 @@ class TestForIncident(unittest.TestCase):
 
     def setUp(self):
         self.app_tester = app.test_client()
+
+    def test_a_get_all_with_no_data(self):
+       
+        response = self.app_tester.get('/api/v1/red-flags')
+        data =  json.loads(response.data)
+        self.assertEqual(data["status"],404)
+
+
+    def test_a_patch_location_in_index_when_there_is_no_data(self):
+            
+        location = {"location": "mutungo"}
+        response = self.app_tester.patch("/api/v1/red-flags/100/location" ,json=location)
+        self.assertEqual(response.status_code, 404)
+
+    
+    
+    def test_a_delete_when_there_is_no_data(self):
+           
+        response = self.app_tester.delete('/api/v1/red-flags/1')
+        self.assertEqual(response.status_code, 404)
+       
         
    
     def test_posting_data_missing_a_variable(self):
@@ -109,7 +130,7 @@ class TestForIncident(unittest.TestCase):
     def test_get_out_of_range_specific_one(self):
         
         
-        response = self.app_tester.get('/api/v1/red-flags/6')
+        response = self.app_tester.get('/api/v1/red-flags/100')
         data =  json.loads(response.data)
         self.assertEqual(data["status"],404)
 
@@ -180,9 +201,8 @@ class TestForIncident(unittest.TestCase):
         self.assertEqual(data["status"],200)
        
 
-    def test_delete_that_doesnot_exist(self):
-    
-   
+    def test_delete_record_that_doesnot_exist(self):
+       
         response = self.app_tester.delete('/api/v1/red-flags/100')
         self.assertEqual(response.status_code, 404)
        
