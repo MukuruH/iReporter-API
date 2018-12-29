@@ -14,9 +14,7 @@ app.config['JSON_SORT_KEYS'] = False
 redflags=[]
 count=0
 
-@app.route('/')
-def hello_world():
-    return 'Hello, welcome to my first api'
+
 
 @app.route('/api/v1/red-flags', methods=['POST'])
 def add_redflag():
