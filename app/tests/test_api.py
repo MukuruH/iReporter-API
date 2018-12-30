@@ -1,6 +1,6 @@
 import unittest
 import json
-from app.app_routes import app
+from app import app
 
 
 
@@ -24,7 +24,7 @@ class TestForIncident(unittest.TestCase):
         self.assertEqual(response.status_code, 404)
 
     
-    
+
     def test_a_delete_when_there_is_no_data(self):
            
         response = self.app_tester.delete('/api/v1/red-flags/1')
