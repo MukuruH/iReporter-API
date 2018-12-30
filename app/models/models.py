@@ -20,7 +20,7 @@ class User:
         self.isAdmin = kwargs['isAdmin']
 
 
-    def convert_to_dictionary(self):
+    def convert_to_dictionary1(self):
         return {'id': self.id, 'name': self.firstname,'name': self.lastname,
                 'othernames': self.othernames,'email':self.email, 
                 'phoneNumber':self.phoneNumber, 'username':self.username,
