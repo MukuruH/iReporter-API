@@ -44,8 +44,8 @@ class IncidentMap(MethodView):
             print(validate)
             if validate == True: 
 
-                count+=1
-                redflag = Incident(count,data["createdBy"], data["types"],data["location"],
+                count+=1  
+                redflag = Incident(count,data["createdBy"], data["types"],location=data["location"],
                                     Images=data["Images"],Videos=data["Videos"],comment=data["comment"])
                 redflags.append(redflag.convert_to_dictionary())
                 return jsonify({"status": 201,"data":[{"id":redflag.id,"message":"Created red-flag record"}] }) ,201

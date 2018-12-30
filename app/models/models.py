@@ -28,14 +28,14 @@ class User:
 
 
 class Incident:
-    def __init__(self,id,createdBy,types,location,**kwargs):
+    def __init__(self,id,createdBy,types,**kwargs):
 
         # created default for the instance varaibles
         self.id = id
         self.createdOn = date.today()
         self.createdBy = createdBy
         self.types = types
-        self.location = location
+        self.location = kwargs['location']
         self.status ='draft'
         self.Images = kwargs['Images']
         self.Videos = kwargs['Videos']
