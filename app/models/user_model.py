@@ -15,9 +15,16 @@ class User:
         self.isAdmin = kwargs['isAdmin']
 
 
-    def convert_to_dictionary(self):
-        return {'id': self.id, 'name': self.firstname,'name': self.lastname,
-                'othernames': self.othernames,'email':self.email, 
-                'phoneNumber':self.phoneNumber, 'username':self.username,
-                'registered':self.registered,'isAdmin':self.isAdmin}
+    def user_details(self):
+        return {
+            'id': self.id,
+            'name': self.firstname,
+            'name': self.lastname,
+            'othernames': self.othernames,
+            'email':self.email, 
+            'phoneNumber':self.phoneNumber, 
+            'username':self.username,
+            'registered':self.registered,
+            'isAdmin':self.isAdmin
+            }
 

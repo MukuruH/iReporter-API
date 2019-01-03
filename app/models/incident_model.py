@@ -22,17 +22,27 @@ class Incident:
         self.comment = kwargs['comment']
 
 
-    def validate_data(createdBy):
-        if not isinstance(createdBy, str):
-            return False
-
-        return True
-
-    def convert_to_dictionary(self):
-        return {'id': self.id, 'createdOn':self.createdOn,'createdBy':self.createdBy,
-                'types':self.types,'location':self.location,'status':self.status,'Images':self.Images,
-                'Videos':self.Videos,'comment':self.comment}
-
     
+
+    def inident_information(self):
+        return {
+            'id': self.id, 
+            'createdOn':self.createdOn,
+            'createdBy':self.createdBy,
+            'types':self.types,
+            'location':self.location,
+            'status':self.status,
+            'Images':self.Images,
+            'Videos':self.Videos,
+            'comment':self.comment
+            }
+
+
+    def validate_data(createdBy):
+            if not isinstance(createdBy, str):
+                return False
+
+            return True
+        
 
 
