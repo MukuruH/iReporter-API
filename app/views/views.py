@@ -23,16 +23,16 @@ class IncidentMap(MethodView):
         if len(redflags) < 1:
                 return jsonify({"status":404,"message":"Resource does not exist" }),404
 
-
-        if id is None:
-            return jsonify({"status":200 ,"data": redflags}),200
-    
         else:
-            for index in range(len(redflags)):
-                if redflags[index]["id"]== id: 
-                    return jsonify({"status":200,"data":redflags[index] }),200
-                elif index == (len(redflags) -1):
-                    return jsonify({"status":404,"message":"Resource does not exist" }) ,404
+            if id is None:
+                return jsonify({"status":200 ,"data": redflags}),200
+        
+            else:
+                for index in range(len(redflags)):
+                    if redflags[index]["id"]== id: 
+                        return jsonify({"status":200,"data":redflags[index] }),200
+                    elif index == (len(redflags) -1):
+                        return jsonify({"status":404,"message":"Resource does not exist" }) ,404
 
     
            
@@ -51,7 +51,6 @@ class IncidentMap(MethodView):
                                     Images=data["Images"],Videos=data["Videos"],comment=data["comment"])
                 redflags.append(redflag.inident_information())
                 return jsonify({"status": 201,"data":[{"id":redflag.id,"message":"Created red-flag record"}] }) ,201
-
             else:
                 return jsonify({"status":400,"message": "Please input text"}),400
 
@@ -59,23 +58,24 @@ class IncidentMap(MethodView):
         except :       
             return jsonify({"status":400,"message": "Please input text"}),400
 
-    def delete(self,id):
-        if len(redflags) <1:
-            return jsonify({"status":404,"message":"Resource does not exist"  }),404    
-    
 
-        for index in range(len(redflags)):
-            if  redflags[index]["id"]== id: 
-                del redflags[redflags.index(redflags[index])]
-                return jsonify({"status":200,"data": [{"id":id,"message": "red-flag record has been deleted"}] }),200
-            elif index == (len(redflags) -1):
-                return jsonify({"status":404,"message":"Resource does not exist" }),404
+
+    def delete(self,id):
+
+        if len(redflags) <1:
+            return jsonify({"status":404,"message":"Resource does not exist"  }),404  
+        else:   
+            for index in range(len(redflags)):
+                if  redflags[index]["id"]== id: 
+                    del redflags[redflags.index(redflags[index])]
+                    return jsonify({"status":200,"data": [{"id":id,"message": "red-flag record has been deleted"}] }),200
+                elif index == (len(redflags) -1):
+                    return jsonify({"status":404,"message":"Resource does not exist" }),404
 
 
 
     def patch(self, id, key):
         data = request.get_json()
-    
  
         if len(redflags) <1:
             return jsonify({"status":404,"message":"Resource does not exist"  }),404
