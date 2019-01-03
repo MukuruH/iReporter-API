@@ -16,6 +16,7 @@ count=0
 class IncidentMap(MethodView):
 
 
+
     def get(self, id):
 
         if id is None:

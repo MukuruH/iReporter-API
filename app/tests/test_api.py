@@ -10,6 +10,8 @@ class TestForIncident(unittest.TestCase):
     def setUp(self):
         self.app_tester = app.test_client()
 
+        
+
     def test_a_get_all_with_no_data(self):
        
         response = self.app_tester.get('/api/v1/red-flags')
