@@ -7,7 +7,8 @@ Author:MukuruH
 from flask import Flask, jsonify, request, json
 from flask.views import MethodView
 
-from app.models.models import User, Incident
+from app.models.incident_model import  Incident
+from app.models.user_model import  User
 
 
 redflags=[]
