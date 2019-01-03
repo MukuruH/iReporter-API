@@ -23,16 +23,16 @@ class IncidentMap(MethodView):
         if len(redflags) < 1:
                 return jsonify({"status":404,"message":"Resource does not exist" }),404
 
+
+        if id is None:
+            return jsonify({"status":200 ,"data": redflags}),200
+    
         else:
-            if id is None:
-                return jsonify({"status":200 ,"data": redflags}),200
-        
-            else:
-                for index in range(len(redflags)):
-                    if redflags[index]["id"]== id: 
-                        return jsonify({"status":200,"data":redflags[index] }),200
-                    elif index == (len(redflags) -1):
-                        return jsonify({"status":404,"message":"Resource does not exist" }) ,404
+            for index in range(len(redflags)):
+                if redflags[index]["id"]== id: 
+                    return jsonify({"status":200,"data":redflags[index] }),200
+                elif index == (len(redflags) -1):
+                    return jsonify({"status":404,"message":"Resource does not exist" }) ,404
 
     
            
@@ -63,14 +63,14 @@ class IncidentMap(MethodView):
     def delete(self,id):
 
         if len(redflags) <1:
-            return jsonify({"status":404,"message":"Resource does not exist"  }),404  
-        else:   
-            for index in range(len(redflags)):
-                if  redflags[index]["id"]== id: 
-                    del redflags[redflags.index(redflags[index])]
-                    return jsonify({"status":200,"data": [{"id":id,"message": "red-flag record has been deleted"}] }),200
-                elif index == (len(redflags) -1):
-                    return jsonify({"status":404,"message":"Resource does not exist" }),404
+            return jsonify({"status":404,"message":"Resource does not exist"  }),404     
+
+        for index in range(len(redflags)):
+            if  redflags[index]["id"]== id: 
+                del redflags[redflags.index(redflags[index])]
+                return jsonify({"status":200,"data": [{"id":id,"message": "red-flag record has been deleted"}] }),200
+            elif index == (len(redflags) -1):
+                return jsonify({"status":404,"message":"Resource does not exist" }),404
 
 
 
