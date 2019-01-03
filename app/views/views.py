@@ -20,9 +20,11 @@ class IncidentMap(MethodView):
 
     def get(self, id):
 
-        if id is None:
-            if len(redflags) < 1:
+        if len(redflags) < 1:
                 return jsonify({"status":404,"message":"Resource does not exist" }),404
+
+
+        if id is None:
             return jsonify({"status":200 ,"data": redflags}),200
     
         else:
@@ -33,9 +35,7 @@ class IncidentMap(MethodView):
                     return jsonify({"status":404,"message":"Resource does not exist" }) ,404
 
     
-            if len(redflags) <1:
-                return jsonify({"status":404,"message":"Resource does not exist"  }),404    
-            
+           
     
     def post(self):
         data = request.get_json()
