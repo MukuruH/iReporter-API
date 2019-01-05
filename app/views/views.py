@@ -23,8 +23,7 @@ class IncidentMap(MethodView):
         if len(redflags) < 1:
                 return jsonify({"status":404,"message":"Resource does not exist" }),404
 
-
-        if id is None:
+        elif id is None:
             return jsonify({"status":200 ,"data": redflags}),200
     
         else:
@@ -80,10 +79,11 @@ class IncidentMap(MethodView):
         if len(redflags) <1:
             return jsonify({"status":404,"message":"Resource does not exist"  }),404
         
-        for index in range(len(redflags)):
-            if redflags[index]["id"]== id:
-                redflags[index][key]=data[key]
-                return jsonify({"status":200,"data": [{"id": redflags[index]["id"],"message": "Updated red-flag record's {}".format(key)}] }),200
-            elif index == (len(redflags) -1):
-                return jsonify({"status":404,"message":"Resource does not exist" }), 404     
+        else:
+            for index in range(len(redflags)):
+                if redflags[index]["id"]== id:
+                    redflags[index][key]=data[key]
+                    return jsonify({"status":200,"data": [{"id": redflags[index]["id"],"message": "Updated red-flag record's {}".format(key)}] }),200
+                elif index == (len(redflags) -1):
+                    return jsonify({"status":404,"message":"Resource does not exist" }), 404     
         
